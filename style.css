@@ -26,24 +26,83 @@ header {
     background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
     color: #ffffff;
     text-align: center;
-    padding: 2.5rem 1rem;
+    padding: 3rem 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
 }
 
 header p {
-    font-size: 1rem;
-    opacity: 0.9;
+    font-size: 1.1rem;
+    opacity: 0.95;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem 1rem;
+}
+
+.intro {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 6px solid var(--primary-color);
+}
+
+.intro h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+/* 下処理ページへの導線バナー */
+.prep-link-box {
+    background-color: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.prep-link-content h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.prep-link-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* 共通ボタン */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
 }
 
 .section-title {
@@ -51,15 +110,13 @@ header p {
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+    margin: 2rem 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.section-desc {
-    margin-bottom: 2rem;
-    color: var(--text-muted);
-}
-
-/* 下処理ステップ */
+/* 下処理カード（prep.html用） */
 .prep-steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -73,12 +130,6 @@ header p {
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
-    position: relative;
-    transition: transform 0.2s ease;
-}
-
-.prep-card:hover {
-    transform: translateY(-3px);
 }
 
 .step-num {
@@ -98,44 +149,127 @@ header p {
     margin-bottom: 0.5rem;
 }
 
-.prep-card p {
-    font-size: 0.95rem;
-    color: #555555;
+/* レシピグリッド */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
-/* 戻るボタン */
+.recipe-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-4px);
+}
+
+.recipe-header {
+    background-color: #f4f8f4;
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.recipe-tag {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-card h3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+}
+
+.recipe-body {
+    padding: 1.25rem;
+    flex-grow: 1;
+}
+
+.ingredients {
+    margin-bottom: 1rem;
+    background-color: #fafafa;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.ingredients h4 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 0.2rem;
+}
+
+.ingredients ul {
+    list-style: none;
+}
+
+.ingredients li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+}
+
+.instructions h4 {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.instructions ol {
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+}
+
+.instructions li {
+    margin-bottom: 0.5rem;
+}
+
+.tips-box {
+    background-color: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-top: 2.5rem;
+}
+
+.tips-box h3 {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
 .nav-box {
     text-align: center;
     margin-top: 2rem;
-}
-
-.btn {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.8rem 1.8rem;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-.btn:hover {
-    background-color: var(--primary-hover);
 }
 
 footer {
     text-align: center;
     padding: 2rem 1rem;
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     border-top: 1px solid var(--border-color);
     margin-top: 3rem;
 }
 
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
     .container {
         padding: 1rem;
