@@ -4,7 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>島ラッキョウの絶品レシピ | 沖縄の味覚を楽しむ</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --primary-hover: #1b5e20;
+            --accent-color: #e65100;
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .intro {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .intro h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        /* 下処理別ページへのリンクカード */
+        .prep-banner {
+            background: linear-gradient(135deg, #ffffff 0%, #f4f8f4 100%);
+            border: 2px dashed var(--primary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .prep-banner-text h3 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prep-banner-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .btn-prep {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 3px 6px rgba(230, 81, 0, 0.2);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-prep:hover {
+            background-color: #bf360c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(230, 81, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin: 2.5rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* レシピグリッド */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .recipe-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .recipe-header {
+            background-color: #f4f8f4;
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .recipe-tag {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-color);
+        }
+
+        .recipe-body {
+            padding: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .ingredients {
+            margin-bottom: 1rem;
+            background-color: #fafafa;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .ingredients h4 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.2rem;
+        }
+
+        .ingredients ul {
+            list-style: none;
+        }
+
+        .ingredients li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.2rem 0;
+        }
+
+        .instructions h4 {
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions ol {
+            padding-left: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tips-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .tips-box h3 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .prep-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -22,12 +273,12 @@
             </p>
         </section>
 
-        <div class="prep-link-box">
-            <div class="prep-link-content">
-                <h3>🔪 調理の前の必須ステップ</h3>
-                <p>島ラッキョウの皮むきや根の切り落としなど、下処理のやり方はこちら</p>
+        <div class="prep-banner">
+            <div class="prep-banner-text">
+                <h3>🔪 下処理のやり方はこちら</h3>
+                <p>皮むきや根切りなど、美味しく調理するための簡単な3ステップを解説！</p>
             </div>
-            <a href="prep.html" class="btn">下処理ガイドを見る →</a>
+            <a href="prep.html" class="btn-prep">下処理ガイドを見る ➔</a>
         </div>
 
         <h2 class="section-title">🍳 おすすめの絶品レシピ</h2>
