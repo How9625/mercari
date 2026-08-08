@@ -3,101 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>たまご屋 - 沖縄直送こだわりの島ラッキョウ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>島ラッキョウの絶品レシピ | 沖縄の味覚を楽しむ</title>
     <style>
-        body { font-family: 'Noto Sans JP', sans-serif; }
+        :root {
+            --primary-color: #2e7d32;
+            --primary-hover: #1b5e20;
+            --accent-color: #e65100;
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .intro {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .intro h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin: 2.5rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 下処理ステップ */
+        .prep-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .prep-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .prep-card h3 {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* レシピグリッド */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .recipe-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .recipe-header {
+            background-color: #f4f8f4;
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .recipe-tag {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-color);
+        }
+
+        .recipe-body {
+            padding: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .ingredients {
+            margin-bottom: 1rem;
+            background-color: #fafafa;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .ingredients h4 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.2rem;
+        }
+
+        .ingredients ul {
+            list-style: none;
+        }
+
+        .ingredients li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.2rem 0;
+        }
+
+        .instructions h4 {
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions ol {
+            padding-left: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tips-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .tips-box h3 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-amber-50 text-gray-800">
+<body>
 
-    <header class="bg-emerald-800 text-white p-4 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-wide">たまご屋</h1>
-            <a href="https://jp.mercari.com/user/profile/764110598" target="_blank" rel="noopener noreferrer" class="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded-full text-sm transition shadow">
-                メルカリショップを見る
-            </a>
-        </div>
+    <header>
+        <h1>シャキシャキ美味しい！島ラッキョウレシピ</h1>
+        <p>沖縄の旬の味わいを毎日の食卓に。簡単＆絶品おすすめ料理</p>
     </header>
 
-    <section class="bg-emerald-900 text-white py-16 px-4 text-center">
-        <div class="max-w-3xl mx-auto">
-            <span class="bg-amber-400 text-gray-900 text-xs md:text-sm font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">メルカリで大好評出品中！</span>
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">シャキシャキ新鮮＆丁寧なお届け<br>「たまご屋」の島ラッキョウ</h2>
-            <p class="text-emerald-100 text-sm md:text-base mb-6">ご注文を受けてから1つずつ丁寧に皮むき・下処理を行ってお届けします。ご購入は安心のメルカリからどうぞ！</p>
-            <a href="https://jp.mercari.com/user/profile/764110598" target="_blank" rel="noopener noreferrer" class="inline-block bg-amber-400 hover:bg-amber-500 text-gray-900 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">
-                メルカリで注文する
-            </a>
-        </div>
-    </section>
+    <div class="container">
 
-    <section class="py-12 px-4 max-w-4xl mx-auto">
-        <h3 class="text-2xl font-bold text-center mb-8 text-emerald-900">「たまご屋」のこだわり</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow border border-amber-100 text-center">
-                <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-3">1</div>
-                <h4 class="font-bold text-gray-900 mb-2">受注後に皮むき・下処理</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">作り置きは一切なし！ご注文をいただいてから下処理を行うため、獲れたての新鮮な味と香りをそのままお楽しみいただけます。</p>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow border border-amber-100 text-center">
-                <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-3">2</div>
-                <h4 class="font-bold text-gray-900 mb-2">丁寧な二重梱包＆箱発送</h4>
-                <p class="text-sm text-gray-600 leading-relaxed">におい移りや液漏れを防ぐ二重ジップロック＋保水対策をし、厚手ダンボール箱で大切に保護して即日〜翌日発送いたします。</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-8 px-4 max-w-3xl mx-auto">
-        <h3 class="text-2xl font-bold text-center mb-8 text-emerald-900">販売商品</h3>
-
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-amber-200">
-            <div class="bg-emerald-800 text-white p-4 text-center font-bold text-lg">
-                【受注後皮むき】沖縄県産 島ラッキョウ
-            </div>
-            <div class="p-6 md:p-8">
-                <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-100">
-                    <div>
-                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded">一番人気</span>
-                        <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">皮むき・下処理済み 500g</h4>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-3xl font-bold text-red-600">¥2,200</span>
-                        <p class="text-xs text-gray-500">（全国一律 送料込み）</p>
-                    </div>
-                </div>
-
-                <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                    皮むき・下処理の手間がいらないため、届いて軽く洗うだけですぐにお召し上がりいただけます。塩漬け・浅漬けはもちろん、天ぷらやチャンプルー（炒め物）にも最適です！
-                </p>
-
-                <div class="bg-amber-50 rounded-xl p-4 mb-6 text-xs text-gray-700 space-y-1.5">
-                    <p>✔ <strong>内容量：</strong>皮むき・下処理済み 500g</p>
-                    <p>✔ <strong>発送時期：</strong>受注後皮むき実施 / 即日〜翌日発送</p>
-                    <p>✔ <strong>梱包：</strong>におい漏れ防止の二重ジップロック＋保水＋箱発送</p>
-                </div>
-
-                <a href="https://jp.mercari.com/user/profile/764110598" target="_blank" rel="noopener noreferrer" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition">
-                    メルカリでこの商品を購入する
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-white py-10 px-4 mt-12 border-t border-gray-200">
-        <div class="max-w-2xl mx-auto text-center">
-            <h4 class="font-bold text-lg text-gray-800 mb-2">お買い物はすべて「メルカリ」経由で安心！</h4>
-            <p class="text-sm text-gray-600 mb-4">
-                匿名配送・各種決済方法（メルペイ、クレジットカード、コンビニ払い等）に対応。安心・安全にお取引いただけます。
+        <section class="intro">
+            <h2>島ラッキョウとは？</h2>
+            <p>
+                沖縄特産の「島ラッキョウ」は、一般的なラッキョウに比べて小ぶりで香りが強く、独自の辛みとシャキシャキとした絶妙な食感が特徴です。お酒のおつまみにはもちろん、炒め物や天ぷらにしても美味しくいただけます！
             </p>
-            <a href="https://jp.mercari.com/user/profile/764110598" target="_blank" rel="noopener noreferrer" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-2.5 rounded-lg text-sm shadow transition">
-                メルカリの「たまご屋」プロフィールページへ
-            </a>
-        </div>
-    </section>
+        </section>
 
-    <footer class="bg-gray-800 text-gray-400 text-center py-6 text-sm">
-        <p>&copy; 2026 たまご屋 All Rights Reserved.</p>
+        <h2 class="section-title">🔪 まずはここから！島ラッキョウの下処理</h2>
+        <div class="prep-steps">
+            <div class="prep-card">
+                <h3>1. 根と茎を切り落とす</h3>
+                <p>根っこのヒゲ部分と、上の青い茎の部分を包丁で少し切り落とします。（青い部分も炒め物に使えます）</p>
+            </div>
+            <div class="prep-card">
+                <h3>2. 薄皮をむく</h3>
+                <p>表面の薄皮を1〜2枚むいて、綺麗な白い部分を出します。水につけながら作業すると皮がむきやすくなります。</p>
+            </div>
+            <div class="prep-card">
+                <h3>3. 水洗いして水気をふく</h3>
+                <p>流水で土をしっかりと洗い流し、キッチンペーパー等で水気を完全に拭き取ります。（水分を拭き取ることで味が馴染みやすくなります）</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">🍳 おすすめの絶品レシピ</h2>
+        <div class="recipe-grid">
+
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <span class="recipe-tag">定番おつまみ</span>
+                    <h3>島ラッキョウの塩漬け（浅漬け）</h3>
+                </div>
+                <div class="recipe-body">
+                    <div class="ingredients">
+                        <h4>材料（2人分）</h4>
+                        <ul>
+                            <li><span>島ラッキョウ</span><span>100g</span></li>
+                            <li><span>塩</span><span>小さじ1/2</span></li>
+                            <li><span>カツオ節</span><span>適量</span></li>
+                            <li><span>ごま油（お好みで）</span><span>少々</span></li>
+                        </ul>
+                    </div>
+                    <div class="instructions">
+                        <h4>作り方</h4>
+                        <ol>
+                            <li>下処理した島ラッキョウをポリ袋に入れる。</li>
+                            <li>塩を加え、袋の上から全体に馴染むよう優しく揉み込む。</li>
+                            <li>冷蔵庫で1〜2時間（できれば一晩）寝かせる。</li>
+                            <li>器に盛り付け、カツオ節とお好みでごま油をかけて完成！</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <span class="recipe-tag">サクサク食感</span>
+                    <h3>島ラッキョウのサクサク天ぷら</h3>
+                </div>
+                <div class="recipe-body">
+                    <div class="ingredients">
+                        <h4>材料（2人分）</h4>
+                        <ul>
+                            <li><span>島ラッキョウ</span><span>100g</span></li>
+                            <li><span>天ぷら粉</span><span>50g</span></li>
+                            <li><span>冷水</span><span>80ml</span></li>
+                            <li><span>揚げ油</span><span>適量</span></li>
+                            <li><span>塩</span><span>適量</span></li>
+                        </ul>
+                    </div>
+                    <div class="instructions">
+                        <h4>作り方</h4>
+                        <ol>
+                            <li>島ラッキョウは水気をよく拭き取る。（数本ずつ束にして揚げると綺麗です）</li>
+                            <li>天ぷら粉と冷水を軽く混ぜて衣を作る。</li>
+                            <li>170〜180度に温めた油で、衣にくぐらせた島ラッキョウを揚げる。</li>
+                            <li>表面がサクッとしたら引き上げ、熱々のうちに塩を振って召し上がれ！</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <span class="recipe-tag">ご飯が進む</span>
+                    <h3>島ラッキョウと豚肉の塩炒め</h3>
+                </div>
+                <div class="recipe-body">
+                    <div class="ingredients">
+                        <h4>材料（2人分）</h4>
+                        <ul>
+                            <li><span>島ラッキョウ</span><span>100g</span></li>
+                            <li><span>豚バラ薄切り肉</span><span>100g</span></li>
+                            <li><span>醤油・酒</span><span>各小さじ1</span></li>
+                            <li><span>塩・こしょう</span><span>少々</span></li>
+                            <li><span>ごま油</span><span>大さじ1/2</span></li>
+                        </ul>
+                    </div>
+                    <div class="instructions">
+                        <h4>作り方</h4>
+                        <ol>
+                            <li>豚肉と島ラッキョウを食べやすい大きさに切る。</li>
+                            <li>フライパンにごま油を熱し、豚肉を炒める。</li>
+                            <li>豚肉に火が通ったら島ラッキョウを加え、強火でサッと炒め合わせる。</li>
+                            <li>酒、醤油、塩こしょうで味を調え、手早く皿に盛る。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <span class="recipe-tag">超簡単 3分</span>
+                    <h3>おかかポン酢和え</h3>
+                </div>
+                <div class="recipe-body">
+                    <div class="ingredients">
+                        <h4>材料（2人分）</h4>
+                        <ul>
+                            <li><span>島ラッキョウ</span><span>80g</span></li>
+                            <li><span>ポン酢</span><span>大さじ1</span></li>
+                            <li><span>カツオ節</span><span>1パック（約2g）</span></li>
+                        </ul>
+                    </div>
+                    <div class="instructions">
+                        <h4>作り方</h4>
+                        <ol>
+                            <li>下処理した島ラッキョウを薄くスライス（斜め切り）にする。</li>
+                            <li>ボウルに入れ、ポン酢とカツオ節を入れて和える。</li>
+                            <li>器に盛り付けて完成。箸休めに最適です！</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tips-box">
+            <h3>💡 保存のポイントとワンポイントアドバイス</h3>
+            <p>
+                島ラッキョウは風味が強いため、冷蔵保存する場合はジップロックや密閉容器に入れるのがおすすめです。生のまま塩漬けにすると冷蔵で1〜2週間ほど美味しくいただけます。皮むき済みのものを購入された場合は、サッと洗い流すだけで手軽に調理できます！
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 島ラッキョウ レシピガイド All Rights Reserved.</p>
     </footer>
 
 </body>
