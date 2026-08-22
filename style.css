@@ -7,6 +7,8 @@
     --text-color: #333333;
     --text-muted: #666666;
     --border-color: #e0e0e0;
+    --mercari-red: #ff0211;
+    --mercari-hover: #e0020f;
 }
 
 * {
@@ -51,7 +53,7 @@ header p {
     background-color: var(--card-bg);
     border-radius: 12px;
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     border-left: 6px solid var(--primary-color);
 }
@@ -62,47 +64,54 @@ header p {
     font-size: 1.4rem;
 }
 
-/* 下処理ページへの導線バナー */
-.prep-link-box {
-    background-color: #e8f5e9;
-    border: 1px solid #c8e6c9;
+/* 下処理ページ案内バナー */
+.prep-banner {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f8f4 100%);
+    border: 2px dashed var(--primary-color);
     border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-.prep-link-content h3 {
+.prep-banner-text h3 {
     color: var(--primary-color);
-    font-size: 1.1rem;
-    margin-bottom: 0.2rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.prep-link-content p {
-    font-size: 0.95rem;
+.prep-banner-text p {
     color: var(--text-muted);
+    font-size: 0.95rem;
 }
 
-/* 共通ボタン */
-.btn {
+/* 共通ボタン（通常用） */
+.btn, .btn-prep {
     display: inline-block;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     color: #ffffff;
     text-decoration: none;
-    padding: 0.7rem 1.4rem;
-    border-radius: 25px;
+    padding: 0.8rem 1.6rem;
+    border-radius: 30px;
     font-weight: bold;
-    font-size: 0.95rem;
-    transition: background-color 0.2s ease;
+    font-size: 1rem;
+    box-shadow: 0 3px 6px rgba(230, 81, 0, 0.2);
+    transition: all 0.2s ease;
     white-space: nowrap;
 }
 
-.btn:hover {
-    background-color: var(--primary-hover);
+.btn:hover, .btn-prep:hover {
+    background-color: #bf360c;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(230, 81, 0, 0.3);
 }
 
 .section-title {
@@ -110,13 +119,18 @@ header p {
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
-    margin: 2rem 0 1.5rem;
+    margin: 2.5rem 0 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-/* 下処理カード（prep.html用） */
+.section-desc {
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+}
+
+/* 下処理カード（prep.html） */
 .prep-steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -239,11 +253,12 @@ header p {
     margin-bottom: 0.5rem;
 }
 
+/* アフィリエイト用パーツ */
 .tips-box {
     background-color: #fff8e1;
     border: 1px solid #ffe082;
     border-radius: 10px;
-    padding: 1.25rem;
+    padding: 1.5rem;
     margin-top: 2.5rem;
 }
 
@@ -251,6 +266,65 @@ header p {
     color: var(--accent-color);
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
+}
+
+.affiliate-box {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed #ffd54f;
+}
+
+.affiliate-box h4 {
+    color: var(--primary-color);
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+}
+
+.affiliate-box p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.affiliate-banner-wide {
+    background: #ffffff;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 2rem 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.affiliate-banner-wide h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.affiliate-banner-wide p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+}
+
+/* メルカリ専用アフィリエイトボタン */
+.btn-mercari {
+    display: inline-block;
+    background-color: var(--mercari-red);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(255, 2, 17, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-mercari:hover {
+    background-color: var(--mercari-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(255, 2, 17, 0.35);
 }
 
 .nav-box {
@@ -273,5 +347,9 @@ footer {
     }
     .container {
         padding: 1rem;
+    }
+    .prep-banner {
+        flex-direction: column;
+        text-align: center;
     }
 }
